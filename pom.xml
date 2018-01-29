@@ -22,11 +22,9 @@
 			<name>Snapshot Repository</name>
 			<url>${nexus.server}/content/repositories/snapshots/</url>
 		</snapshotRepository>
-	</distribut
-	anagement>
+	</distributionManagement>
 
-  <modu
-les>
-    <module>test-zookeeper</module>
+  <modules>
+    <module>test-hadoop</module>
   </modules>
 </project>
