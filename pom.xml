@@ -26,5 +26,6 @@
 
   <modules>
     <module>test-hadoop</module>
+    <module>test-hbase</module>
   </modules>
 </project>

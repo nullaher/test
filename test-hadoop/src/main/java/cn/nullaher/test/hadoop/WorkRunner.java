@@ -19,33 +19,35 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
  * @desc : ...
  */
 public class WorkRunner {
-
-	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException{
-//		System.setProperty("hadoop.home.dir","C:/Users/simon/git/test/test-hadoop/hadoop-2.7.5" );
+	
+	public static void main(String[] args) throws IOException , ClassNotFoundException , InterruptedException{
+		// System.setProperty("hadoop.home.dir","C:/Users/simon/git/test/test-hadoop/hadoop-2.7.5"
+		// );
 		
-		Configuration conf = new Configuration();//
-//		conf.set("fs.defaultFS" , "hdfs://svr1:9000/");
-//		conf.set("fs.defaultFS" , "hdfs://localhost:9000/");
-//		conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
+		Configuration conf = new Configuration();
+		conf.set("mapreduce.job.jar" , "target/wc.jar");
+		
+		conf.set("fs.defaultFS" , "hdfs://svr1:9000/");
+		// conf.set("fs.defaultFS" , "hdfs://localhost:9000/");
+		// conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
 		Job wkjob = Job.getInstance(conf);
 		wkjob.setJarByClass(WorkRunner.class);
 		wkjob.setMapperClass(WorkCountMapper.class);
 		wkjob.setReducerClass(WorkCountReducer.class);
 		
 		wkjob.setOutputKeyClass(Text.class);
-		wkjob.setOutputValueClass(LongWritable.class);	
+		wkjob.setOutputValueClass(LongWritable.class);
 		
 		wkjob.setMapOutputKeyClass(Text.class);
 		wkjob.setMapOutputValueClass(LongWritable.class);
 		
-		FileInputFormat.setInputPaths(wkjob ,new Path("hdfs://svr1:9000/testwc/hello.txt"));
-		FileOutputFormat.setOutputPath(wkjob ,new Path("hdfs://svr1:9000/testwc/result3"));
+		FileInputFormat.setInputPaths(wkjob , new Path("hdfs://svr1:9000/testwc/hello.txt"));
+		FileOutputFormat.setOutputPath(wkjob , new Path("hdfs://svr1:9000/testwc/result12"));
 		
-//		String inputUrl="C:/Users/simon/git/test/test-hadoop/localdir/hello.txt";
-//		String outputUrl="C:/Users/simon/git/test/test-hadoop/localdir/result";
-//		FileInputFormat.setInputPaths(wkjob ,new Path(inputUrl));
-//		FileOutputFormat.setOutputPath(wkjob ,new Path(outputUrl));
-		
+		// String inputUrl="C:/Users/simon/git/test/test-hadoop/localdir/hello.txt";
+		// String outputUrl="C:/Users/simon/git/test/test-hadoop/localdir/result";
+		// FileInputFormat.setInputPaths(wkjob ,new Path(inputUrl));
+		// FileOutputFormat.setOutputPath(wkjob ,new Path(outputUrl));
 		
 		wkjob.waitForCompletion(true);
 	}
